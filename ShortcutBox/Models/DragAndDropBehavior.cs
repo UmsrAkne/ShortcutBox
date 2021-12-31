@@ -7,7 +7,7 @@
     using Microsoft.Xaml.Behaviors;
     using ViewModels;
 
-    public class DragAndDropuBehavior : Behavior<Window>
+    public class DragAndDropBehavior : Behavior<Window>
     {
         protected override void OnAttached()
         {
