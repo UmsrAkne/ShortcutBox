@@ -1,9 +1,11 @@
 ﻿namespace ShortcutBox.Models
 {
+    using System.Collections.Generic;
     using System.IO;
+    using System.Linq;
     using System.Windows;
-    using ViewModels;
     using Microsoft.Xaml.Behaviors;
+    using ViewModels;
 
     public class DragAndDropuBehavior : Behavior<Window>
     {
@@ -28,7 +30,20 @@
         private void AssociatedObject_Drop(object sender, DragEventArgs e)
         {
             // ファイルパスの一覧の配列
-            string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
+            List<string> filePaths = new List<string>((string[])e.Data.GetData(DataFormats.FileDrop));
+
+            List<FileSystemInfo> files = filePaths.Select(p =>
+            {
+                if (File.GetAttributes(p).HasFlag(FileAttributes.Directory))
+                {
+                    return new DirectoryInfo(p) as FileSystemInfo;
+                }
+                else
+                {
+                    return new FileInfo(p) as FileSystemInfo;
+                }
+            }).ToList();
+
             var vm = ((Window)sender).DataContext as MainWindowViewModel;
         }
 
