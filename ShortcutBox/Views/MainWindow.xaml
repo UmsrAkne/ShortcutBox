@@ -42,6 +42,7 @@
         <ListView
             Grid.Row="1"
             Grid.Column="0"
+            HorizontalContentAlignment="Stretch"
             ItemsSource="{Binding Files}"
             SelectedItem="{Binding SelectedFileInfo}">
 
@@ -62,16 +63,26 @@
                         </i:Interaction.Triggers>
 
                         <Grid>
+                            <Grid.Style>
+                                <Style TargetType="Grid">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding IsDirectory}" Value="true">
+                                            <Setter Property="Background" Value="LemonChiffon" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+
+                            </Grid.Style>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="100" />
-                                <ColumnDefinition Width="auto" />
+                                <ColumnDefinition />
                             </Grid.ColumnDefinitions>
 
                             <Border Grid.Column="0">
                                 <TextBlock Text="{Binding Name}" />
                             </Border>
 
-                            <Border Grid.Column="1">
+                            <Border Grid.Column="1" HorizontalAlignment="Stretch">
                                 <TextBlock Text="{Binding FullName}" />
                             </Border>
                         </Grid>
