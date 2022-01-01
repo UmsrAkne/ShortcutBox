@@ -1,5 +1,6 @@
 ﻿namespace ShortcutBox.ViewModels
 {
+    using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.IO;
     using Prism.Mvvm;
@@ -7,6 +8,7 @@
     public class MainWindowViewModel : BindableBase
     {
         private string title = "Prism Application";
+        private FileSystemInfo selectedFileInfo;
 
         public MainWindowViewModel()
         {
@@ -19,5 +21,7 @@
         }
 
         public ObservableCollection<FileSystemInfo> Files { get; private set; } = new ObservableCollection<FileSystemInfo>();
+
+        public FileSystemInfo SelectedFileInfo { get => selectedFileInfo; set => SetProperty(ref selectedFileInfo, value); }
     }
 }

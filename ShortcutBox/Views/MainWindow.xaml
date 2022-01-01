@@ -41,7 +41,9 @@
         <ListView
             Grid.Row="1"
             Grid.Column="0"
-            ItemsSource="{Binding Files}">
+            ItemsSource="{Binding Files}"
+            SelectedItem="{Binding SelectedFileInfo}">
+
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <Grid>
