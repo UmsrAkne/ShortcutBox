@@ -41,7 +41,16 @@
         <ListView
             Grid.Row="1"
             Grid.Column="0"
-            ItemsSource="{Binding Files}">
+            ItemsSource="{Binding Files}"
+            SelectedItem="{Binding SelectedFileInfo}">
+
+            <ListView.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Command="{Binding CopyFullPathCommand}" Header="フルパスをコピー" />
+                    <MenuItem Command="{Binding CopyParentDirectoryPathCommand}" Header="親ディレクトリのパスをコピー" />
+                </ContextMenu>
+            </ListView.ContextMenu>
+
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <Grid>
