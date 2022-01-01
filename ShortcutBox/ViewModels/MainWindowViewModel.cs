@@ -2,6 +2,7 @@
 {
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
+    using System.Diagnostics;
     using System.IO;
     using System.Windows;
     using Prism.Commands;
@@ -14,6 +15,7 @@
 
         private DelegateCommand copyFullPathCommand;
         private DelegateCommand copyParentDirectoryPathCommand;
+        private DelegateCommand openFileCommand;
 
         public MainWindowViewModel()
         {
@@ -47,6 +49,19 @@
                 if (SelectedFileInfo != null)
                 {
                     Clipboard.SetText(Path.GetDirectoryName(SelectedFileInfo.FullName));
+                }
+            }));
+        }
+
+        public DelegateCommand OpenFileCommand
+        {
+            get => openFileCommand ?? (openFileCommand = new DelegateCommand(() =>
+            {
+                if (SelectedFileInfo != null && SelectedFileInfo.Exists)
+                {
+                    Process p = new Process();
+                    p.StartInfo.FileName = SelectedFileInfo.FullName;
+                    p.Start();
                 }
             }));
         }
