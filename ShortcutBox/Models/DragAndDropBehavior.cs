@@ -32,15 +32,15 @@
             // ファイルパスの一覧の配列
             List<string> filePaths = new List<string>((string[])e.Data.GetData(DataFormats.FileDrop));
 
-            List<FileSystemInfo> files = filePaths.Select(p =>
+            List<ExFileInfo> files = filePaths.Select(p =>
             {
                 if (File.GetAttributes(p).HasFlag(FileAttributes.Directory))
                 {
-                    return new DirectoryInfo(p) as FileSystemInfo;
+                    return new ExFileInfo(new DirectoryInfo(p));
                 }
                 else
                 {
-                    return new FileInfo(p) as FileSystemInfo;
+                    return new ExFileInfo(new FileInfo(p));
                 }
             }).ToList();
 

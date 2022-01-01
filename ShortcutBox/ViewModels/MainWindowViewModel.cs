@@ -7,11 +7,12 @@
     using System.Windows;
     using Prism.Commands;
     using Prism.Mvvm;
+    using ShortcutBox.Models;
 
     public class MainWindowViewModel : BindableBase
     {
         private string title = "Prism Application";
-        private FileSystemInfo selectedFileInfo;
+        private ExFileInfo selectedFileInfo;
 
         private DelegateCommand copyFullPathCommand;
         private DelegateCommand copyParentDirectoryPathCommand;
@@ -27,9 +28,9 @@
             set { SetProperty(ref title, value); }
         }
 
-        public ObservableCollection<FileSystemInfo> Files { get; private set; } = new ObservableCollection<FileSystemInfo>();
+        public ObservableCollection<ExFileInfo> Files { get; private set; } = new ObservableCollection<ExFileInfo>();
 
-        public FileSystemInfo SelectedFileInfo { get => selectedFileInfo; set => SetProperty(ref selectedFileInfo, value); }
+        public ExFileInfo SelectedFileInfo { get => selectedFileInfo; set => SetProperty(ref selectedFileInfo, value); }
 
         public DelegateCommand CopyFullPathCommand
         {
