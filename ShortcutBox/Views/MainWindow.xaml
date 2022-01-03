@@ -37,6 +37,10 @@
             Grid.Column="0"
             Grid.ColumnSpan="2">
             <MenuItem Header="File" />
+
+            <MenuItem Header="Edit">
+                <MenuItem Command="{Binding ClearFileListCommand}" Header="ファイルリストをクリア" />
+            </MenuItem>
         </Menu>
 
         <ListView

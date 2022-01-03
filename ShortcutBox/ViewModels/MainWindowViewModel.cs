@@ -17,6 +17,7 @@
         private DelegateCommand copyFullPathCommand;
         private DelegateCommand copyParentDirectoryPathCommand;
         private DelegateCommand openFileCommand;
+        private DelegateCommand clearFileListCommand;
 
         public MainWindowViewModel()
         {
@@ -64,6 +65,14 @@
                     p.StartInfo.FileName = SelectedFileInfo.FullName;
                     p.Start();
                 }
+            }));
+        }
+
+        public DelegateCommand ClearFileListCommand
+        {
+            get => clearFileListCommand ?? (clearFileListCommand = new DelegateCommand(() =>
+            {
+                Files.Clear();
             }));
         }
     }
