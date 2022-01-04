@@ -10,6 +10,20 @@
             IsDirectory = fileInfo is DirectoryInfo;
         }
 
+        public ExFileInfo(string path)
+        {
+            if (File.GetAttributes(path).HasFlag(FileAttributes.Directory))
+            {
+                FileSystemInfo = new DirectoryInfo(path);
+            }
+            else
+            {
+                FileSystemInfo = new FileInfo(path);
+            }
+
+            IsDirectory = FileSystemInfo is DirectoryInfo;
+        }
+
         public FileSystemInfo FileSystemInfo { get; private set; }
 
         public bool IsDirectory { get; private set; }
