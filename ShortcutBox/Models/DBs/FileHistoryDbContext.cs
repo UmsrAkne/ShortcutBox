@@ -7,7 +7,7 @@
 
     public class FileHistoryDbContext : DbContext
     {
-        public DbSet<FileHistory> FIleHistories { get; set; }
+        public DbSet<FileHistory> FileHistories { get; set; }
 
         public string DBFileName => "file_history.sqlite";
 

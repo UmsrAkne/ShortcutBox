@@ -14,7 +14,7 @@
     {
         private string title = "Prism Application";
         private ExFileInfo selectedFileInfo;
-        private FileHistoryDbContext DbContext = new FileHistoryDbContext();
+        private FileHistoryDbContext databaseContext = new FileHistoryDbContext();
 
         private DelegateCommand copyFullPathCommand;
         private DelegateCommand copyParentDirectoryPathCommand;
@@ -23,7 +23,7 @@
 
         public MainWindowViewModel()
         {
-            DbContext.CreateDatabase();
+            databaseContext.CreateDatabase();
         }
 
         public string Title
