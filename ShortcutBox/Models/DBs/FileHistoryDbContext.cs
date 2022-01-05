@@ -1,7 +1,9 @@
 ﻿namespace ShortcutBox.Models.DBs
 {
+    using System.Collections.Generic;
     using System.Data.SQLite;
     using System.IO;
+    using System.Linq;
     using Microsoft.Data.Sqlite;
     using Microsoft.EntityFrameworkCore;
 
@@ -17,6 +19,11 @@
             {
                 Database.EnsureCreated();
             }
+        }
+
+        public List<FileHistory> GetFileHistoriesSortedByDate()
+        {
+            return FileHistories.OrderBy(f => f.AditionDate).ToList();
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
