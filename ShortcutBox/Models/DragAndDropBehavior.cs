@@ -45,7 +45,12 @@
             }).ToList();
 
             var vm = ((Window)sender).DataContext as MainWindowViewModel;
-            files.ForEach(f => vm.Files.Add(f));
+
+            files.ForEach(f =>
+            {
+                vm.Files.Add(f);
+                vm.SaveHistory(f);
+            });
         }
 
         private void AssociatedObject_PreviewDragOver(object sender, DragEventArgs e)

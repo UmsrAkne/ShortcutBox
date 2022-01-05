@@ -8,11 +8,13 @@
     using Prism.Commands;
     using Prism.Mvvm;
     using ShortcutBox.Models;
+    using ShortcutBox.Models.DBs;
 
     public class MainWindowViewModel : BindableBase
     {
         private string title = "Prism Application";
         private ExFileInfo selectedFileInfo;
+        private FileHistoryDbContext databaseContext = new FileHistoryDbContext();
 
         private DelegateCommand copyFullPathCommand;
         private DelegateCommand copyParentDirectoryPathCommand;
@@ -21,6 +23,7 @@
 
         public MainWindowViewModel()
         {
+            databaseContext.CreateDatabase();
         }
 
         public string Title
@@ -74,6 +77,11 @@
             {
                 Files.Clear();
             }));
+        }
+
+        public void SaveHistory(ExFileInfo fileInfo)
+        {
+            databaseContext.AddHistory(fileInfo);
         }
     }
 }
