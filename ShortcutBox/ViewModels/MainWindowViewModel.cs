@@ -78,5 +78,10 @@
                 Files.Clear();
             }));
         }
+
+        public void SaveHistory(ExFileInfo fileInfo)
+        {
+            databaseContext.AddHistory(fileInfo);
+        }
     }
 }

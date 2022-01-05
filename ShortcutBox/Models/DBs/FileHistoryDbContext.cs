@@ -1,5 +1,6 @@
 ﻿namespace ShortcutBox.Models.DBs
 {
+    using System;
     using System.Collections.Generic;
     using System.Data.SQLite;
     using System.IO;
@@ -24,6 +25,29 @@
         public List<FileHistory> GetFileHistoriesSortedByDate()
         {
             return FileHistories.OrderBy(f => f.AditionDate).ToList();
+        }
+
+        public void AddHistory(ExFileInfo exfileInfo)
+        {
+            // 既に同じファイルの情報が履歴にあれば更新。無ければ DB にデータを追加する。
+            var sameFileInfo = FileHistories.Where(f => f.FullPath == exfileInfo.FullName);
+
+            if (sameFileInfo.Count() != 0)
+            {
+                sameFileInfo.First().AditionDate = DateTime.Now;
+            }
+            else
+            {
+                var fileHistory = new FileHistory();
+                fileHistory.Id = FileHistories.Count() + 1;
+                fileHistory.AditionDate = DateTime.Now;
+                fileHistory.FullPath = exfileInfo.FullName;
+                fileHistory.IsDirectory = exfileInfo.IsDirectory;
+                fileHistory.Name = exfileInfo.Name;
+                FileHistories.Add(fileHistory);
+            }
+
+            SaveChanges();
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

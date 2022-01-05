@@ -19,6 +19,6 @@
         public string FullPath { get; set; }
 
         [Required]
-        public string IsDirectory { get; set; }
+        public bool IsDirectory { get; set; }
     }
 }
