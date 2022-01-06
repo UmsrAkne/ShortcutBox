@@ -1,10 +1,9 @@
 ﻿namespace ShortcutBox.ViewModels
 {
-    using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.Diagnostics;
-    using System.Linq;
     using System.IO;
+    using System.Linq;
     using System.Windows;
     using Prism.Commands;
     using Prism.Mvvm;
@@ -22,6 +21,7 @@
         private DelegateCommand openFileCommand;
         private DelegateCommand clearFileListCommand;
         private DelegateCommand saveStatusCommand;
+        private DelegateCommand restoreFilesCommand;
 
         public MainWindowViewModel()
         {
@@ -102,6 +102,15 @@
                 });
 
                 databaseContext.SaveChanges();
+            }));
+        }
+
+        public DelegateCommand RestoreFilesCommand
+        {
+            get => restoreFilesCommand ?? (restoreFilesCommand = new DelegateCommand(() =>
+            {
+                var fileHistories = databaseContext.FileHistories.Where(f => f.UsedLastTime);
+                Files.AddRange(fileHistories.Select(h => new ExFileInfo(h.FullPath)));
             }));
         }
 

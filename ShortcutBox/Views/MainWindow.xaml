@@ -46,6 +46,7 @@
 
             <MenuItem Header="Edit">
                 <MenuItem Command="{Binding ClearFileListCommand}" Header="ファイルリストをクリア" />
+                <MenuItem Command="{Binding RestoreFilesCommand}" Header="前回終了時のリストを復元" />
             </MenuItem>
         </Menu>
 
