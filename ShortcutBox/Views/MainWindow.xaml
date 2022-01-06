@@ -93,7 +93,13 @@
                                 <TextBlock Text="{Binding Name}" />
                             </Border>
 
-                            <Border Grid.Column="1" HorizontalAlignment="Stretch">
+                            <Border
+                                Grid.Column="1"
+                                Padding="3,0"
+                                HorizontalAlignment="Stretch"
+                                BorderBrush="Black"
+                                BorderThickness="1,0,0,0">
+
                                 <TextBlock Text="{Binding FullName}" />
                             </Border>
                         </Grid>
