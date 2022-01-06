@@ -16,6 +16,12 @@
         <m:DragAndDropBehavior />
     </i:Interaction.Behaviors>
 
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Closing">
+            <i:InvokeCommandAction Command="{Binding SaveStatusCommand}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+
     <Grid>
         <Grid.RowDefinitions>
 

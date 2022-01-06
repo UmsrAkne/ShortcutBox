@@ -3,6 +3,7 @@
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.Diagnostics;
+    using System.Linq;
     using System.IO;
     using System.Windows;
     using Prism.Commands;
@@ -20,6 +21,7 @@
         private DelegateCommand copyParentDirectoryPathCommand;
         private DelegateCommand openFileCommand;
         private DelegateCommand clearFileListCommand;
+        private DelegateCommand saveStatusCommand;
 
         public MainWindowViewModel()
         {
@@ -76,6 +78,30 @@
             get => clearFileListCommand ?? (clearFileListCommand = new DelegateCommand(() =>
             {
                 Files.Clear();
+            }));
+        }
+
+        public DelegateCommand SaveStatusCommand
+        {
+            get => saveStatusCommand ?? (saveStatusCommand = new DelegateCommand(() =>
+            {
+                if (Files.Count == 0)
+                {
+                    return;
+                }
+
+                databaseContext.FileHistories.ToList().ForEach(file => file.UsedLastTime = false);
+
+                Files.ToList().ForEach(f =>
+                {
+                    var fileInfo = databaseContext.FileHistories.Where(file => file.FullPath == f.FullName).FirstOrDefault();
+                    if (fileInfo != null)
+                    {
+                        fileInfo.UsedLastTime = true;
+                    }
+                });
+
+                databaseContext.SaveChanges();
             }));
         }
 
