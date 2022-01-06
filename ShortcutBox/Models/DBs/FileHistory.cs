@@ -20,5 +20,8 @@
 
         [Required]
         public bool IsDirectory { get; set; }
+
+        [Required]
+        public bool UsedLastTime { get; set; }
     }
 }
