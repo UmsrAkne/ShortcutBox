@@ -16,6 +16,12 @@
         <m:DragAndDropBehavior />
     </i:Interaction.Behaviors>
 
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Closing">
+            <i:InvokeCommandAction Command="{Binding SaveStatusCommand}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+
     <Grid>
         <Grid.RowDefinitions>
 
@@ -40,6 +46,7 @@
 
             <MenuItem Header="Edit">
                 <MenuItem Command="{Binding ClearFileListCommand}" Header="ファイルリストをクリア" />
+                <MenuItem Command="{Binding RestoreFilesCommand}" Header="前回終了時のリストを復元" />
             </MenuItem>
         </Menu>
 
