@@ -7,7 +7,7 @@
     xmlns:prism="http://prismlibrary.com/"
     Name="window"
     Title="{Binding Title}"
-    Width="550"
+    Width="650"
     Height="250"
     prism:ViewModelLocator.AutoWireViewModel="True"
     AllowDrop="True">
@@ -85,7 +85,7 @@
 
                             </Grid.Style>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="100" />
+                                <ColumnDefinition Width="150" />
                                 <ColumnDefinition />
                             </Grid.ColumnDefinitions>
 
