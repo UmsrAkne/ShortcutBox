@@ -46,9 +46,10 @@
 
             var vm = ((Window)sender).DataContext as MainWindowViewModel;
 
+            vm.AddFiles(files);
+
             files.ForEach(f =>
             {
-                vm.Files.Add(f);
                 vm.SaveHistory(f);
             });
         }
