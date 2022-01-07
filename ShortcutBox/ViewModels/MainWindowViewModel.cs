@@ -17,6 +17,8 @@
         private ObservableCollection<ExFileInfo> files = new ObservableCollection<ExFileInfo>();
         private ExFileInfo selectedFileInfo;
         private FileHistoryDbContext databaseContext = new FileHistoryDbContext();
+        private SortingPropertyName sortingPropertyName;
+        private bool orderReverse;
 
         private DelegateCommand copyFullPathCommand;
         private DelegateCommand copyParentDirectoryPathCommand;
@@ -25,6 +27,7 @@
         private DelegateCommand saveStatusCommand;
         private DelegateCommand restoreFilesCommand;
         private DelegateCommand<object> sortCommand;
+        private DelegateCommand reverseOrderCommand;
 
         public MainWindowViewModel()
         {
@@ -44,6 +47,8 @@
         }
 
         public ExFileInfo SelectedFileInfo { get => selectedFileInfo; set => SetProperty(ref selectedFileInfo, value); }
+
+        public bool OrderReverse { get => orderReverse; set => SetProperty(ref orderReverse, value); }
 
         public DelegateCommand CopyFullPathCommand
         {
@@ -125,18 +130,33 @@
         {
             get => sortCommand ?? (sortCommand = new DelegateCommand<object>((object propName) =>
             {
-                SortingPropertyName propertyName = (SortingPropertyName)propName;
+                sortingPropertyName = (SortingPropertyName)propName;
 
-                switch (propertyName)
+                switch (sortingPropertyName)
                 {
                     case SortingPropertyName.FileName:
-                        Files = new ObservableCollection<ExFileInfo>(Files.OrderBy(f => f.Name));
+                        Files = new ObservableCollection<ExFileInfo>(
+                            OrderReverse ?
+                                Files.OrderByDescending(f => f.Name) :
+                                Files.OrderBy(f => f.Name));
                         break;
 
                     case SortingPropertyName.Index:
-                        Files = new ObservableCollection<ExFileInfo>(Files.OrderBy(f => f.Index));
+                        Files = new ObservableCollection<ExFileInfo>(
+                            OrderReverse ?
+                                Files.OrderByDescending(f => f.Index) :
+                                Files.OrderBy(f => f.Index));
                         break;
                 }
+            }));
+        }
+
+        public DelegateCommand ReverseOrderCommand
+        {
+            get => reverseOrderCommand ?? (reverseOrderCommand = new DelegateCommand(() =>
+            {
+                OrderReverse = !OrderReverse;
+                SortCommand.Execute(sortingPropertyName);
             }));
         }
 

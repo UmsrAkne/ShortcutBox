@@ -65,6 +65,12 @@
                         </m:SortingPropertyName>
                     </MenuItem.CommandParameter>
                 </MenuItem>
+
+                <MenuItem
+                    Command="{Binding ReverseOrderCommand}"
+                    Header="並び順を反転"
+                    IsChecked="{Binding OrderReverse}" />
+
             </MenuItem>
         </Menu>
 
