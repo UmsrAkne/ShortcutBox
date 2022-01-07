@@ -68,6 +68,7 @@
     <Compile Include="Models\DBs\FileHistoryDbContext.cs" />
     <Compile Include="Models\DragAndDropBehavior.cs" />
     <Compile Include="Models\ExFileInfo.cs" />
+    <Compile Include="Models\SortingPropertyName.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="Views\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>

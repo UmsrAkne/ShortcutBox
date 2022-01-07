@@ -14,6 +14,7 @@
     public class MainWindowViewModel : BindableBase
     {
         private string title = "Prism Application";
+        private ObservableCollection<ExFileInfo> files = new ObservableCollection<ExFileInfo>();
         private ExFileInfo selectedFileInfo;
         private FileHistoryDbContext databaseContext = new FileHistoryDbContext();
 
@@ -23,6 +24,7 @@
         private DelegateCommand clearFileListCommand;
         private DelegateCommand saveStatusCommand;
         private DelegateCommand restoreFilesCommand;
+        private DelegateCommand<object> sortCommand;
 
         public MainWindowViewModel()
         {
@@ -35,7 +37,11 @@
             set { SetProperty(ref title, value); }
         }
 
-        public ObservableCollection<ExFileInfo> Files { get; private set; } = new ObservableCollection<ExFileInfo>();
+        public ObservableCollection<ExFileInfo> Files
+        {
+            get => files;
+            private set => SetProperty(ref files, value);
+        }
 
         public ExFileInfo SelectedFileInfo { get => selectedFileInfo; set => SetProperty(ref selectedFileInfo, value); }
 
@@ -112,6 +118,25 @@
             {
                 var fileHistories = databaseContext.FileHistories.Where(f => f.UsedLastTime);
                 AddFiles(fileHistories.Select(h => new ExFileInfo(h.FullPath)).ToList());
+            }));
+        }
+
+        public DelegateCommand<object> SortCommand
+        {
+            get => sortCommand ?? (sortCommand = new DelegateCommand<object>((object propName) =>
+            {
+                SortingPropertyName propertyName = (SortingPropertyName)propName;
+
+                switch (propertyName)
+                {
+                    case SortingPropertyName.FileName:
+                        Files = new ObservableCollection<ExFileInfo>(Files.OrderBy(f => f.Name));
+                        break;
+
+                    case SortingPropertyName.Index:
+                        Files = new ObservableCollection<ExFileInfo>(Files.OrderBy(f => f.Index));
+                        break;
+                }
             }));
         }
 
