@@ -17,7 +17,7 @@
         private ObservableCollection<ExFileInfo> files = new ObservableCollection<ExFileInfo>();
         private ExFileInfo selectedFileInfo;
         private FileHistoryDbContext databaseContext = new FileHistoryDbContext();
-        private SortingPropertyName sortingPropertyName;
+        private SortingPropertyName sortingPropertyName = SortingPropertyName.Index;
         private bool orderReverse;
 
         private DelegateCommand copyFullPathCommand;
