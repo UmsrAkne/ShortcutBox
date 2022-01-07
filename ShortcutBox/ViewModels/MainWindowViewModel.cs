@@ -1,5 +1,6 @@
 ﻿namespace ShortcutBox.ViewModels
 {
+    using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.Diagnostics;
     using System.IO;
@@ -13,8 +14,11 @@
     public class MainWindowViewModel : BindableBase
     {
         private string title = "Prism Application";
+        private ObservableCollection<ExFileInfo> files = new ObservableCollection<ExFileInfo>();
         private ExFileInfo selectedFileInfo;
         private FileHistoryDbContext databaseContext = new FileHistoryDbContext();
+        private SortingPropertyName sortingPropertyName = SortingPropertyName.Index;
+        private bool orderReverse;
 
         private DelegateCommand copyFullPathCommand;
         private DelegateCommand copyParentDirectoryPathCommand;
@@ -22,6 +26,8 @@
         private DelegateCommand clearFileListCommand;
         private DelegateCommand saveStatusCommand;
         private DelegateCommand restoreFilesCommand;
+        private DelegateCommand<object> sortCommand;
+        private DelegateCommand reverseOrderCommand;
 
         public MainWindowViewModel()
         {
@@ -34,9 +40,15 @@
             set { SetProperty(ref title, value); }
         }
 
-        public ObservableCollection<ExFileInfo> Files { get; private set; } = new ObservableCollection<ExFileInfo>();
+        public ObservableCollection<ExFileInfo> Files
+        {
+            get => files;
+            private set => SetProperty(ref files, value);
+        }
 
         public ExFileInfo SelectedFileInfo { get => selectedFileInfo; set => SetProperty(ref selectedFileInfo, value); }
+
+        public bool OrderReverse { get => orderReverse; set => SetProperty(ref orderReverse, value); }
 
         public DelegateCommand CopyFullPathCommand
         {
@@ -110,13 +122,53 @@
             get => restoreFilesCommand ?? (restoreFilesCommand = new DelegateCommand(() =>
             {
                 var fileHistories = databaseContext.FileHistories.Where(f => f.UsedLastTime);
-                Files.AddRange(fileHistories.Select(h => new ExFileInfo(h.FullPath)));
+                AddFiles(fileHistories.Select(h => new ExFileInfo(h.FullPath)).ToList());
+            }));
+        }
+
+        public DelegateCommand<object> SortCommand
+        {
+            get => sortCommand ?? (sortCommand = new DelegateCommand<object>((object propName) =>
+            {
+                sortingPropertyName = (SortingPropertyName)propName;
+
+                switch (sortingPropertyName)
+                {
+                    case SortingPropertyName.FileName:
+                        Files = new ObservableCollection<ExFileInfo>(
+                            OrderReverse ?
+                                Files.OrderByDescending(f => f.Name) :
+                                Files.OrderBy(f => f.Name));
+                        break;
+
+                    case SortingPropertyName.Index:
+                        Files = new ObservableCollection<ExFileInfo>(
+                            OrderReverse ?
+                                Files.OrderByDescending(f => f.Index) :
+                                Files.OrderBy(f => f.Index));
+                        break;
+                }
+            }));
+        }
+
+        public DelegateCommand ReverseOrderCommand
+        {
+            get => reverseOrderCommand ?? (reverseOrderCommand = new DelegateCommand(() =>
+            {
+                OrderReverse = !OrderReverse;
+                SortCommand.Execute(sortingPropertyName);
             }));
         }
 
         public void SaveHistory(ExFileInfo fileInfo)
         {
             databaseContext.AddHistory(fileInfo);
+        }
+
+        public void AddFiles(List<ExFileInfo> files)
+        {
+            Enumerable.Range(0, files.Count() - 1).ToList().ForEach(i => files[i].Index = i);
+            Files.AddRange(files);
         }
     }
 }

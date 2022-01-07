@@ -33,5 +33,7 @@
         public string FullName => FileSystemInfo.FullName;
 
         public bool Exists => FileSystemInfo.Exists;
+
+        public int Index { get; set; }
     }
 }
