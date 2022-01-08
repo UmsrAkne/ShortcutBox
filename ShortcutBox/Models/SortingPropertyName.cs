@@ -4,5 +4,6 @@
     {
         Index,
         FileName,
+        Kind,
     }
 }
