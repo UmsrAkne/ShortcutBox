@@ -147,6 +147,13 @@
                                 Files.OrderByDescending(f => f.Index) :
                                 Files.OrderBy(f => f.Index));
                         break;
+
+                    case SortingPropertyName Kind:
+                        Files = new ObservableCollection<ExFileInfo>(
+                            OrderReverse ?
+                                Files.OrderByDescending(f => f.IsDirectory).ThenByDescending(f => f.Name) :
+                                Files.OrderBy(f => f.IsDirectory).ThenBy(f => f.Name));
+                        break;
                 }
             }));
         }

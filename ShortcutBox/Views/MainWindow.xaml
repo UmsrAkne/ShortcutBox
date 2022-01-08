@@ -58,6 +58,14 @@
                     </MenuItem.CommandParameter>
                 </MenuItem>
 
+                <MenuItem Command="{Binding SortCommand}" Header="ファイルとフォルダを分けてソート">
+                    <MenuItem.CommandParameter>
+                        <m:SortingPropertyName>
+                            Kind
+                        </m:SortingPropertyName>
+                    </MenuItem.CommandParameter>
+                </MenuItem>
+
                 <MenuItem Command="{Binding SortCommand}" Header="ソートを解除">
                     <MenuItem.CommandParameter>
                         <m:SortingPropertyName>
@@ -65,6 +73,7 @@
                         </m:SortingPropertyName>
                     </MenuItem.CommandParameter>
                 </MenuItem>
+
 
                 <MenuItem
                     Command="{Binding ReverseOrderCommand}"
