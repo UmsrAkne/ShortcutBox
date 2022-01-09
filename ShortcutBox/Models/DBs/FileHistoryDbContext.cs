@@ -12,6 +12,8 @@
     {
         public DbSet<FileHistory> FileHistories { get; set; }
 
+        public DbSet<TextHistory> TextHistories { get; set; }
+
         public string DBFileName => "file_history.sqlite";
 
         public void CreateDatabase()
