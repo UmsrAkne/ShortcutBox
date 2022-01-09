@@ -66,6 +66,7 @@
     </Compile>
     <Compile Include="Models\DBs\FileHistory.cs" />
     <Compile Include="Models\DBs\FileHistoryDbContext.cs" />
+    <Compile Include="Models\DBs\TextHistory.cs" />
     <Compile Include="Models\DragAndDropBehavior.cs" />
     <Compile Include="Models\ExFileInfo.cs" />
     <Compile Include="Models\SortingPropertyName.cs" />

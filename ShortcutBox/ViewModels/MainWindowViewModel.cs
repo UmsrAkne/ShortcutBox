@@ -57,6 +57,7 @@
                 if (SelectedFileInfo != null)
                 {
                     Clipboard.SetText(SelectedFileInfo.FullName);
+                    databaseContext.SaveCopiedText(SelectedFileInfo.FullName);
                 }
             }));
         }
@@ -68,6 +69,7 @@
                 if (SelectedFileInfo != null)
                 {
                     Clipboard.SetText(Path.GetDirectoryName(SelectedFileInfo.FullName));
+                    databaseContext.SaveCopiedText(Path.GetDirectoryName(SelectedFileInfo.FullName));
                 }
             }));
         }

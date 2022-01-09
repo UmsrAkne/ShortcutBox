@@ -12,6 +12,8 @@
     {
         public DbSet<FileHistory> FileHistories { get; set; }
 
+        public DbSet<TextHistory> TextHistories { get; set; }
+
         public string DBFileName => "file_history.sqlite";
 
         public void CreateDatabase()
@@ -47,6 +49,12 @@
                 FileHistories.Add(fileHistory);
             }
 
+            SaveChanges();
+        }
+
+        public void SaveCopiedText(string text)
+        {
+            TextHistories.Add(new TextHistory() { Text = text, Id = TextHistories.Count() + 1 });
             SaveChanges();
         }
 
