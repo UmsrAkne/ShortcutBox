@@ -52,6 +52,12 @@
             SaveChanges();
         }
 
+        public void SaveCopiedText(string text)
+        {
+            TextHistories.Add(new TextHistory() { Text = text, Id = TextHistories.Count() + 1 });
+            SaveChanges();
+        }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!File.Exists(DBFileName))
