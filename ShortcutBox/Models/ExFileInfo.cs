@@ -35,5 +35,7 @@
         public bool Exists => FileSystemInfo.Exists;
 
         public int Index { get; set; }
+
+        public string FileType => IsDirectory ? "Folder" : FileSystemInfo.Extension;
     }
 }

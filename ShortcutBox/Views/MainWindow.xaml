@@ -118,16 +118,21 @@
 
                             </Grid.Style>
                             <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="50" />
                                 <ColumnDefinition Width="150" />
                                 <ColumnDefinition />
                             </Grid.ColumnDefinitions>
 
                             <Border Grid.Column="0">
+                                <TextBlock Text="{Binding FileType}" />
+                            </Border>
+
+                            <Border Grid.Column="1">
                                 <TextBlock Text="{Binding Name}" />
                             </Border>
 
                             <Border
-                                Grid.Column="1"
+                                Grid.Column="2"
                                 Padding="3,0"
                                 HorizontalAlignment="Stretch"
                                 BorderBrush="Black"
