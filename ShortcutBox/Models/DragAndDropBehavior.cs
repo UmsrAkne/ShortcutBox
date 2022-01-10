@@ -29,6 +29,12 @@
 
         private void AssociatedObject_Drop(object sender, DragEventArgs e)
         {
+            if (e.Data.GetData(DataFormats.FileDrop) == null)
+            {
+                // ドロップするとまずい類のファイル（デスクトップにあるネットワークへのリンクとか）があるとここを通る。
+                return;
+            }
+
             // ファイルパスの一覧の配列
             List<string> filePaths = new List<string>((string[])e.Data.GetData(DataFormats.FileDrop));
 
