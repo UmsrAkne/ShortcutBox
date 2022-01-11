@@ -83,69 +83,77 @@
             </MenuItem>
         </Menu>
 
-        <ListView
-            Grid.Row="1"
-            Grid.Column="0"
-            HorizontalContentAlignment="Stretch"
-            ItemsSource="{Binding Files}"
-            SelectedItem="{Binding SelectedFileInfo}">
+        <TabControl Grid.Row="1" Grid.Column="0">
+            <TabItem Header="ファイルリスト">
 
-            <ListView.ContextMenu>
-                <ContextMenu>
-                    <MenuItem Command="{Binding CopyFullPathCommand}" Header="フルパスをコピー" />
-                    <MenuItem Command="{Binding CopyParentDirectoryPathCommand}" Header="親ディレクトリのパスをコピー" />
-                </ContextMenu>
-            </ListView.ContextMenu>
+                <ListView
+                    HorizontalContentAlignment="Stretch"
+                    ItemsSource="{Binding Files}"
+                    SelectedItem="{Binding SelectedFileInfo}">
 
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <ContentControl>
-                        <i:Interaction.Triggers>
-                            <i:EventTrigger EventName="MouseDoubleClick">
-                                <i:InvokeCommandAction Command="{Binding DataContext.OpenFileCommand, ElementName=window}" />
-                            </i:EventTrigger>
-                        </i:Interaction.Triggers>
+                    <ListView.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem Command="{Binding CopyFullPathCommand}" Header="フルパスをコピー" />
+                            <MenuItem Command="{Binding CopyParentDirectoryPathCommand}" Header="親ディレクトリのパスをコピー" />
+                        </ContextMenu>
+                    </ListView.ContextMenu>
 
-                        <Grid>
-                            <Grid.Style>
-                                <Style TargetType="Grid">
-                                    <Style.Triggers>
-                                        <DataTrigger Binding="{Binding IsDirectory}" Value="true">
-                                            <Setter Property="Background" Value="LemonChiffon" />
-                                        </DataTrigger>
-                                    </Style.Triggers>
-                                </Style>
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ContentControl>
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseDoubleClick">
+                                        <i:InvokeCommandAction Command="{Binding DataContext.OpenFileCommand, ElementName=window}" />
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
 
-                            </Grid.Style>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="50" />
-                                <ColumnDefinition Width="150" />
-                                <ColumnDefinition />
-                            </Grid.ColumnDefinitions>
+                                <Grid>
+                                    <Grid.Style>
+                                        <Style TargetType="Grid">
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding IsDirectory}" Value="true">
+                                                    <Setter Property="Background" Value="LemonChiffon" />
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
 
-                            <Border Grid.Column="0">
-                                <TextBlock Text="{Binding FileType}" />
-                            </Border>
+                                    </Grid.Style>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="50" />
+                                        <ColumnDefinition Width="150" />
+                                        <ColumnDefinition />
+                                    </Grid.ColumnDefinitions>
 
-                            <Border Grid.Column="1">
-                                <TextBlock Text="{Binding Name}" />
-                            </Border>
+                                    <Border Grid.Column="0">
+                                        <TextBlock Text="{Binding FileType}" />
+                                    </Border>
 
-                            <Border
-                                Grid.Column="2"
-                                Padding="3,0"
-                                HorizontalAlignment="Stretch"
-                                BorderBrush="Black"
-                                BorderThickness="1,0,0,0">
+                                    <Border Grid.Column="1">
+                                        <TextBlock Text="{Binding Name}" />
+                                    </Border>
 
-                                <TextBlock Text="{Binding FullName}" />
-                            </Border>
-                        </Grid>
+                                    <Border
+                                        Grid.Column="2"
+                                        Padding="3,0"
+                                        HorizontalAlignment="Stretch"
+                                        BorderBrush="Black"
+                                        BorderThickness="1,0,0,0">
 
-                    </ContentControl>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
+                                        <TextBlock Text="{Binding FullName}" />
+                                    </Border>
+                                </Grid>
+
+                            </ContentControl>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </TabItem>
+
+            <TabItem Header="ファイル履歴" />
+            <TabItem Header="クリップボード履歴" />
+
+        </TabControl>
+
 
         <StatusBar
             Grid.Row="2"
