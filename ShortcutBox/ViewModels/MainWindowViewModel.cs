@@ -21,6 +21,7 @@
         private SortingPropertyName sortingPropertyName = SortingPropertyName.Index;
         private bool orderReverse;
 
+        private FileHistoryViewModel fileHistoryViewModel;
         private DelegateCommand copyFullPathCommand;
         private DelegateCommand copyParentDirectoryPathCommand;
         private DelegateCommand openFileCommand;
@@ -54,10 +55,15 @@
             set => SetProperty(ref fileHistories, value);
         }
 
-
         public ExFileInfo SelectedFileInfo { get => selectedFileInfo; set => SetProperty(ref selectedFileInfo, value); }
 
         public bool OrderReverse { get => orderReverse; set => SetProperty(ref orderReverse, value); }
+
+        public FileHistoryViewModel FileHistoryViewModel
+        {
+            get => fileHistoryViewModel;
+            set => SetProperty(ref fileHistoryViewModel, value);
+        }
 
         public DelegateCommand CopyFullPathCommand
         {
