@@ -150,7 +150,15 @@
             </TabItem>
 
             <TabItem Header="ファイル履歴">
-                <ListView ItemsSource="{Binding FileHistories}">
+                <ListView ItemsSource="{Binding FileHistoryViewModel.FileHistories}" SelectedItem="{Binding FileHistoryViewModel.SelectedItem}">
+
+                    <ListView.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem Command="{Binding FileHistoryViewModel.CopyFullPathCommand}" Header="フルパスをコピー" />
+                            <MenuItem Command="{Binding FileHistoryViewModel.CopyParentDirectoryPathCommand}" Header="親ディレクトリのパスをコピー" />
+                        </ContextMenu>
+                    </ListView.ContextMenu>
+
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <Border>

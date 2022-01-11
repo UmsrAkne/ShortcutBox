@@ -1,5 +1,6 @@
 ﻿namespace ShortcutBox.ViewModels
 {
+    using System.Collections.ObjectModel;
     using System.Diagnostics;
     using System.IO;
     using System.Windows;
@@ -10,10 +11,18 @@
 
     public class FileHistoryViewModel : BindableBase
     {
+        private ObservableCollection<FileHistory> fileHistories;
         private FileHistory selectedItem;
         private DelegateCommand copyFullPathCommand;
         private DelegateCommand copyParentDirectoryPathCommand;
         private DelegateCommand openFileCommand;
+
+        public ObservableCollection<FileHistory> FileHistories
+        {
+            get => fileHistories;
+            set => SetProperty(ref fileHistories, value);
+        }
+
 
         public FileHistory SelectedItem { get => selectedItem; set => SetProperty(ref selectedItem, value); }
 
