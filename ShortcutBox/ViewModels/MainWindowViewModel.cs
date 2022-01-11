@@ -180,6 +180,7 @@
         public void SaveHistory(ExFileInfo fileInfo)
         {
             databaseContext.AddHistory(fileInfo);
+            FileHistoryViewModel.FileHistories = new ObservableCollection<FileHistory>(databaseContext.FileHistories.Select(fs => fs));
         }
 
         public void AddFiles(List<ExFileInfo> files)
