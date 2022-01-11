@@ -20,6 +20,7 @@
         private SortingPropertyName sortingPropertyName = SortingPropertyName.Index;
         private bool orderReverse;
 
+        private FileHistoryViewModel fileHistoryViewModel = new FileHistoryViewModel();
         private DelegateCommand copyFullPathCommand;
         private DelegateCommand copyParentDirectoryPathCommand;
         private DelegateCommand openFileCommand;
@@ -32,6 +33,7 @@
         public MainWindowViewModel()
         {
             databaseContext.CreateDatabase();
+            FileHistoryViewModel.FileHistories = new ObservableCollection<FileHistory>(databaseContext.FileHistories.Select(fs => fs));
         }
 
         public string Title
@@ -49,6 +51,12 @@
         public ExFileInfo SelectedFileInfo { get => selectedFileInfo; set => SetProperty(ref selectedFileInfo, value); }
 
         public bool OrderReverse { get => orderReverse; set => SetProperty(ref orderReverse, value); }
+
+        public FileHistoryViewModel FileHistoryViewModel
+        {
+            get => fileHistoryViewModel;
+            set => SetProperty(ref fileHistoryViewModel, value);
+        }
 
         public DelegateCommand CopyFullPathCommand
         {
@@ -172,6 +180,7 @@
         public void SaveHistory(ExFileInfo fileInfo)
         {
             databaseContext.AddHistory(fileInfo);
+            FileHistoryViewModel.FileHistories = new ObservableCollection<FileHistory>(databaseContext.FileHistories.Select(fs => fs));
         }
 
         public void AddFiles(List<ExFileInfo> files)
