@@ -15,6 +15,7 @@
     {
         private string title = "Prism Application";
         private ObservableCollection<ExFileInfo> files = new ObservableCollection<ExFileInfo>();
+        private ObservableCollection<FileHistory> fileHistories;
         private ExFileInfo selectedFileInfo;
         private FileHistoryDbContext databaseContext = new FileHistoryDbContext();
         private SortingPropertyName sortingPropertyName = SortingPropertyName.Index;
@@ -32,6 +33,7 @@
         public MainWindowViewModel()
         {
             databaseContext.CreateDatabase();
+            FileHistories = new ObservableCollection<FileHistory>(databaseContext.FileHistories.Select(fs => fs));
         }
 
         public string Title
@@ -45,6 +47,13 @@
             get => files;
             private set => SetProperty(ref files, value);
         }
+
+        public ObservableCollection<FileHistory> FileHistories
+        {
+            get => fileHistories;
+            set => SetProperty(ref fileHistories, value);
+        }
+
 
         public ExFileInfo SelectedFileInfo { get => selectedFileInfo; set => SetProperty(ref selectedFileInfo, value); }
 

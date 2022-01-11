@@ -149,7 +149,28 @@
                 </ListView>
             </TabItem>
 
-            <TabItem Header="ファイル履歴" />
+            <TabItem Header="ファイル履歴">
+                <ListView ItemsSource="{Binding FileHistories}">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <Border>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="100" />
+                                        <ColumnDefinition />
+                                    </Grid.ColumnDefinitions>
+
+                                    <TextBlock Grid.Column="0" Text="{Binding Name}" />
+                                    <TextBlock Grid.Column="1" Text="{Binding FullPath}" />
+
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+
+            </TabItem>
+
             <TabItem Header="クリップボード履歴" />
 
         </TabControl>
