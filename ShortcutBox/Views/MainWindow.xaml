@@ -12,6 +12,10 @@
     prism:ViewModelLocator.AutoWireViewModel="True"
     AllowDrop="True">
 
+    <Window.Resources>
+        <m:DateTimeConverter x:Key="DateTimeConverter" />
+    </Window.Resources>
+
     <i:Interaction.Behaviors>
         <m:DragAndDropBehavior />
     </i:Interaction.Behaviors>
@@ -171,7 +175,7 @@
 
                                     <TextBlock Grid.Column="0" Text="{Binding Name}" />
                                     <TextBlock Grid.Column="1" Text="{Binding FullPath}" />
-                                    <TextBlock Grid.Column="2" Text="{Binding AditionDate}" />
+                                    <TextBlock Grid.Column="2" Text="{Binding AditionDate, Converter={StaticResource DateTimeConverter}}" />
 
                                 </Grid>
                             </Border>
