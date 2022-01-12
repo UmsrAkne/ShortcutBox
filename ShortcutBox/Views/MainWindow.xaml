@@ -165,11 +165,13 @@
                                 <Grid>
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="100" />
+                                        <ColumnDefinition Width="350" />
                                         <ColumnDefinition />
                                     </Grid.ColumnDefinitions>
 
                                     <TextBlock Grid.Column="0" Text="{Binding Name}" />
                                     <TextBlock Grid.Column="1" Text="{Binding FullPath}" />
+                                    <TextBlock Grid.Column="2" Text="{Binding AditionDate}" />
 
                                 </Grid>
                             </Border>
